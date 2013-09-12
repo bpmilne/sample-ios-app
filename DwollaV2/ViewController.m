@@ -17,7 +17,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    main = [[MainViewController alloc] init];
+    login = [[LoginViewController alloc] init];
+    tutorial = [[TutorialViewController alloc] init];
+    login.delegate = self;
+    main.delegate = self;
+       
+    [self.view addSubview:main.view];
+    [self.view addSubview:login.view];
+    [self.view addSubview:tutorial.view];
+    
+    command = [[CommandCenter alloc] init];
+    if ([command didRemember])
+    {
+        tutorial.view.hidden = YES;
+        login.view.hidden = YES;
+    }
+    command.delegate = main;
+    [login addCommandCenter:command];
+    [main addCommandCenter:command];
+}
+
+- (void)didLogin
+{
+    [login clearWebView];
+}
+
+- (void)logout
+{
+    tutorial.view.hidden = NO;
+    [tutorial backDown];
+    login.view.hidden = NO;
+    [login dropBack];
+    [login oAuth];
 }
 
 - (void)didReceiveMemoryWarning

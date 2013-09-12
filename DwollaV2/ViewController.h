@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import "CommandCenter.h"
+#import "TutorialViewController.h"
+#import "LoginViewController.h"
+#import "MainViewController.h"
+
+@interface ViewController : UIViewController <LoginViewControllerDelegate, MainDelegate>
+{
+    TutorialViewController* tutorial;
+    LoginViewController* login;
+    MainViewController* main;
+
+    CommandCenter* command;    
+}
 
 @end
